@@ -11,7 +11,11 @@ const SearchBar = () => (
   <View style={styles.searchContainer}>
     <View style={styles.searchSection}>
       <View style={styles.searchField}>
-        <TextInput placeholder="Search" />
+        <Ionicons name="search-outline" size={24} color="black" />
+        <TextInput
+          style={styles.input}
+          placeholder="Restaurants,Groceries,dishes"
+        />
       </View>
       <Link href={"/"} asChild={true}>
         <TouchableOpacity style={styles.optionsButton}>
@@ -81,7 +85,7 @@ const styles = StyleSheet.create({
   },
   profileButton: {
     backgroundColor: Colors.lightGrey,
-    padding: 20,
+    padding: 14,
     borderRadius: 50,
   },
   title: {
@@ -103,6 +107,10 @@ const styles = StyleSheet.create({
   searchField: {
     flex: 1,
     backgroundColor: Colors.lightGrey,
+    borderRadius: 8,
+    flexDirection: "row",
+    alignItems: "center",
+    paddingLeft: 5,
   },
   optionsButton: {
     padding: 10,
@@ -114,6 +122,11 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     alignItems: "center",
   },
+  input: {
+    padding: 10,
+    color: Colors.mediumDark,
+  },
+  searchIcon: {},
 });
 
 export default CustomHeader;

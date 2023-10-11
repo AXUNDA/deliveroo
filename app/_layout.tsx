@@ -5,16 +5,19 @@ export const unstable_settings = {
   // Ensure that reloading on `/modal` keeps a back button present.
   initialRouteName: "index",
 };
+import { BottomSheetModalProvider } from "@gorhom/bottom-sheet";
 
 export default function RootLayoutNav() {
   return (
-    <Stack>
-      <Stack.Screen
-        name="index"
-        options={{
-          header: () => <CustomHeader />,
-        }}
-      />
-    </Stack>
+    <BottomSheetModalProvider>
+      <Stack>
+        <Stack.Screen
+          name="index"
+          options={{
+            header: () => <CustomHeader />,
+          }}
+        />
+      </Stack>
+    </BottomSheetModalProvider>
   );
 }
