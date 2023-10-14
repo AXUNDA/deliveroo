@@ -1,11 +1,13 @@
 import { View, Text, StyleSheet, TouchableOpacity, Image } from "react-native";
-import React from "react";
+import React, { useRef } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Ionicons } from "@expo/vector-icons";
 import Colors from "../constants/Colors";
 import { MaterialIcons } from "@expo/vector-icons";
 import { Link } from "expo-router";
 import { TextInput } from "react-native-gesture-handler";
+import Bottom_Sheet from "./BottomSheet";
+import { BottomSheetModal } from "@gorhom/bottom-sheet";
 
 const SearchBar = () => (
   <View style={styles.searchContainer}>
@@ -17,7 +19,7 @@ const SearchBar = () => (
           placeholder="Restaurants,Groceries,dishes"
         />
       </View>
-      <Link href={"/"} asChild={true}>
+      <Link href={"/(modal)/filter"} asChild>
         <TouchableOpacity style={styles.optionsButton}>
           <Ionicons name="options-outline" size={24} color={Colors.primary} />
         </TouchableOpacity>
@@ -27,16 +29,24 @@ const SearchBar = () => (
 );
 
 const CustomHeader = () => {
+  const bottomSheetRef = useRef<BottomSheetModal>(null);
+  function openModal() {
+    console.log("open sesame");
+    bottomSheetRef.current?.present();
+  }
+
   return (
     <SafeAreaView style={styles.safeArea}>
+      <Bottom_Sheet ref={bottomSheetRef} />
+
       <View style={styles.container}>
-        <TouchableOpacity>
+        <TouchableOpacity onPress={openModal}>
           <Image
             style={styles.bike}
             source={require("../assets/images/bike.png")}
           />
         </TouchableOpacity>
-        <TouchableOpacity style={styles.titleContainer}>
+        <TouchableOpacity style={styles.titleContainer} onPress={openModal}>
           <Text style={styles.title}>Delivery • now</Text>
           <View style={styles.location}>
             <Text style={styles.subTitle}>London</Text>

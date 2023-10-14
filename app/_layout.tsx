@@ -1,4 +1,4 @@
-import { Stack } from "expo-router";
+import { Stack, useNavigation } from "expo-router";
 import CustomHeader from "../components/CustomHeader";
 
 export const unstable_settings = {
@@ -6,8 +6,12 @@ export const unstable_settings = {
   initialRouteName: "index",
 };
 import { BottomSheetModalProvider } from "@gorhom/bottom-sheet";
+import Colors from "../constants/Colors";
+import { EvilIcons } from "@expo/vector-icons";
+import { TouchableOpacity } from "react-native";
 
 export default function RootLayoutNav() {
+  const navigation = useNavigation();
   return (
     <BottomSheetModalProvider>
       <Stack>
@@ -15,6 +19,24 @@ export default function RootLayoutNav() {
           name="index"
           options={{
             header: () => <CustomHeader />,
+          }}
+        />
+        <Stack.Screen
+          name="(modal)/filter"
+          options={{
+            presentation: "modal",
+            headerTitle: "filter",
+            headerShadowVisible: false,
+            headerStyle: {
+              backgroundColor: Colors.lightGrey,
+            },
+            headerTitleAlign: "center",
+
+            headerLeft: () => (
+              <TouchableOpacity onPress={() => navigation.goBack()}>
+                <EvilIcons name="close" size={40} color={Colors.primary} />
+              </TouchableOpacity>
+            ),
           }}
         />
       </Stack>
