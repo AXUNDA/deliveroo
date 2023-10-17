@@ -46,7 +46,7 @@ const Bottom_Sheet = forwardRef<BottomSheetModal>((props, ref) => {
         </View>
 
         <Text style={styles.subHeading}>Your location</Text>
-        <Link href={"/"} asChild>
+        <Link href={"/(modal)/location"} asChild onPress={() => dismiss()}>
           <TouchableOpacity>
             <View style={styles.item}>
               <EvilIcons name="location" size={24} color="black" />

@@ -39,6 +39,24 @@ export default function RootLayoutNav() {
             ),
           }}
         />
+        <Stack.Screen
+          name="(modal)/location"
+          options={{
+            presentation: "fullScreenModal",
+            headerTitle: "Search",
+            headerShadowVisible: false,
+            headerStyle: {
+              backgroundColor: Colors.lightGrey,
+            },
+            headerTitleAlign: "center",
+
+            headerLeft: () => (
+              <TouchableOpacity onPress={() => navigation.goBack()}>
+                <EvilIcons name="close" size={40} color={Colors.primary} />
+              </TouchableOpacity>
+            ),
+          }}
+        />
       </Stack>
     </BottomSheetModalProvider>
   );
