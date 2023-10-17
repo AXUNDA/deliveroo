@@ -10,10 +10,7 @@ import { ListRenderItem } from "react-native";
 import { Entypo } from "@expo/vector-icons";
 import { Ionicons } from "@expo/vector-icons";
 import { MaterialCommunityIcons, MaterialIcons } from "@expo/vector-icons";
-import Animated, {
-  useAnimatedStyle,
-  useSharedValue,
-} from "react-native-reanimated";
+import { useSharedValue } from "react-native-reanimated";
 import { AntDesign } from "@expo/vector-icons";
 import BouncyCheckbox from "react-native-bouncy-checkbox";
 
@@ -71,25 +68,24 @@ const ItemBox = () => (
 export default function Filter() {
   const navigation = useNavigation();
   const [items, setItems] = useState<Category[]>(categories);
-  const [selected, setSelected] = useState<Category[]>([]);
+  // const [selected, setSelected] = useState<Category[]>([]);
   const [isSelected, setIsSelected] = useState(false);
 
-  const flexWidth = useSharedValue(0);
-  const scale = useSharedValue(0);
+  // const flexWidth = useSharedValue(0);
 
   useEffect(() => {
-    const hasSelected = selected.length > 0;
+    // const hasSelected = selected.length > 0;
     const selectedItems = items.filter((item) => item.checked);
     if (selectedItems.length > 0) {
       setIsSelected(true);
     } else {
       setIsSelected(false);
     }
-    const newSelected = selectedItems.length > 0;
-    if (hasSelected !== newSelected) {
-      flexWidth.value = newSelected ? 150 : 0;
-    }
-    setSelected(selectedItems);
+    // const newSelected = selectedItems.length > 0;
+    // if (hasSelected !== newSelected) {
+    //   flexWidth.value = newSelected ? 150 : 0;
+    // }
+    // setSelected(selectedItems);
   }, [items]);
 
   const clearAll = () => {
@@ -101,44 +97,12 @@ export default function Filter() {
     setItems(update);
   };
 
-  // const animatedStyle = useAnimatedStyle(() => {
-  //   return {
-  //     width: flexWidth.value,
-  //   };
-  // });
-
-  const animatedStyles = useAnimatedStyle(() => {
-    return {
-      width: flexWidth.value,
-      opacity: flexWidth.value > 0 ? 1 : 0,
-    };
-  });
-
-  const animatedText = useAnimatedStyle(() => {
-    return {
-      transform: [{ scale: scale.value }],
-    };
-  });
-
   const renderItem: ListRenderItem<Category> = ({ item, index }) => (
     <View style={styles.row}>
       <Text style={styles.itemText}>
         {item.name} ({item.count})
       </Text>
       <Checkbox
-        // fillColor={Colors.primary}
-        // unfillColor="#fff"
-        // disableBuiltInState
-        // iconStyle={{
-        //   borderColor: Colors.primary,
-        //   borderRadius: 4,
-        //   borderWidth: 2,
-        // }}
-        // innerIconStyle={{
-        //   borderColor: Colors.primary,
-        //   borderRadius: 4,
-        //   borderWidth: 2,
-        // }}
         color={Colors.primary}
         style={{
           height: 25,
