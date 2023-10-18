@@ -22,7 +22,7 @@ const Location_search = () => {
           console.log(data, details);
         }}
         query={{
-          key: "AIzaSyC2rdnNWLCpxjGCV8c589V4LiQlkeldJAI",
+          key: "",
           language: "en",
         }}
       />
