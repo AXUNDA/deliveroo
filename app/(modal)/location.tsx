@@ -3,17 +3,29 @@ import React, { useState } from "react";
 import MapView from "react-native-maps";
 import Colors from "../../constants/Colors";
 import { useNavigation } from "expo-router";
+import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete";
 
 const Location_search = () => {
   const navigation = useNavigation();
   const [region, setRegion] = useState({
-    latitude: 4.77149,
-    longitude: 7.01435,
+    latitude: 6.465422,
+    longitude: 3.406448,
     latitudeDelta: 0.02,
     longitudeDelta: 0.02,
   });
   return (
     <View style={styles.container}>
+      <GooglePlacesAutocomplete
+        placeholder="Search"
+        onPress={(data, details = null) => {
+          // 'details' is provided when fetchDetails = true
+          console.log(data, details);
+        }}
+        query={{
+          key: "AIzaSyC2rdnNWLCpxjGCV8c589V4LiQlkeldJAI",
+          language: "en",
+        }}
+      />
       <MapView
         mapType="standard"
         showsUserLocation={true}
