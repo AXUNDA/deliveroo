@@ -1,41 +1,26 @@
-import { View, Text, Button, TouchableOpacity, StyleSheet } from "react-native";
-import React, { useMemo, forwardRef, useCallback } from "react";
-import BottomSheet, {
-  BottomSheetModal,
-  BottomSheetBackdrop,
-  useBottomSheetModal,
-} from "@gorhom/bottom-sheet";
-import Colors from "../constants/Colors";
-import { Link } from "expo-router";
-import { EvilIcons } from "@expo/vector-icons";
-import { Entypo } from "@expo/vector-icons";
+import { View, Text, Button, TouchableOpacity, StyleSheet } from 'react-native';
+import React, { forwardRef, useCallback, useMemo } from 'react';
+import { BottomSheetBackdrop, BottomSheetModal, useBottomSheetModal } from '@gorhom/bottom-sheet';
+import Colors from '../constants/Colors';
+import { Link } from 'expo-router';
+import { Ionicons } from '@expo/vector-icons';
 
-type ref = BottomSheetModal;
+export type Ref = BottomSheetModal;
 
-const Bottom_Sheet = forwardRef<BottomSheetModal>((props, ref) => {
-  const snapPoints = useMemo(() => ["50%"], []);
-  const renderBackDrop = useCallback(
-    (props: any) => (
-      <BottomSheetBackdrop
-        appearsOnIndex={0}
-        disappearsOnIndex={-1}
-        {...props}
-      />
-    ),
-    []
-  );
+const BottomSheet = forwardRef<Ref>((props, ref) => {
+  const snapPoints = useMemo(() => ['50%'], []);
+  const renderBackdrop = useCallback((props: any) => <BottomSheetBackdrop appearsOnIndex={0} disappearsOnIndex={-1} {...props} />, []);
   const { dismiss } = useBottomSheetModal();
+
   return (
     <BottomSheetModal
-      handleIndicatorStyle={{ display: "none" }}
+      handleIndicatorStyle={{ display: 'none' }}
       backgroundStyle={{ borderRadius: 0, backgroundColor: Colors.lightGrey }}
+      overDragResistanceFactor={0}
       ref={ref}
       snapPoints={snapPoints}
-      overDragResistanceFactor={0}
-      animateOnMount={true}
-      backdropComponent={renderBackDrop}
-    >
-      <View style={styles.containerStyle}>
+      backdropComponent={renderBackdrop}>
+      <View style={styles.contentContainer}>
         <View style={styles.toggle}>
           <TouchableOpacity style={styles.toggleActive}>
             <Text style={styles.activeText}>Delivery</Text>
@@ -45,28 +30,28 @@ const Bottom_Sheet = forwardRef<BottomSheetModal>((props, ref) => {
           </TouchableOpacity>
         </View>
 
-        <Text style={styles.subHeading}>Your location</Text>
-        <Link href={"/(modal)/location"} asChild onPress={() => dismiss()}>
+        <Text style={styles.subheader}>Your Location</Text>
+        <Link href={'/(modal)/location-search'} asChild>
           <TouchableOpacity>
             <View style={styles.item}>
-              <EvilIcons name="location" size={24} color="black" />
-              <Text style={{ flex: 1 }}> Current location</Text>
-              <Entypo name="chevron-small-right" size={24} color="black" />
+              <Ionicons name="location-outline" size={20} color={Colors.medium} />
+              <Text style={{ flex: 1 }}>Current location</Text>
+              <Ionicons name="chevron-forward" size={20} color={Colors.primary} />
             </View>
           </TouchableOpacity>
         </Link>
-        <Text style={styles.subHeading}>Now</Text>
-        <Link href={"/"} asChild>
-          <TouchableOpacity>
-            <View style={styles.item}>
-              <EvilIcons name="clock" size={24} color="black" />
-              <Text style={{ flex: 1 }}> Current location</Text>
-              <Entypo name="chevron-small-right" size={24} color="black" />
-            </View>
-          </TouchableOpacity>
-        </Link>
-        <TouchableOpacity onPress={() => dismiss()} style={styles.button}>
-          <Text style={styles.buttonText}>confirm</Text>
+
+        <Text style={styles.subheader}>Arrival time</Text>
+        <TouchableOpacity>
+          <View style={styles.item}>
+            <Ionicons name="stopwatch-outline" size={20} color={Colors.medium} />
+            <Text style={{ flex: 1 }}>Now</Text>
+            <Ionicons name="chevron-forward" size={20} color={Colors.primary} />
+          </View>
+        </TouchableOpacity>
+
+        <TouchableOpacity style={styles.button} onPress={() => dismiss()}>
+          <Text style={styles.buttonText}>Confirm</Text>
         </TouchableOpacity>
       </View>
     </BottomSheetModal>
@@ -74,63 +59,58 @@ const Bottom_Sheet = forwardRef<BottomSheetModal>((props, ref) => {
 });
 
 const styles = StyleSheet.create({
-  buttonText: {
-    color: "#fff",
-    fontWeight: "bold",
-    textAlign: "center",
+  contentContainer: {
+    flex: 1,
+  },
+  toggle: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    gap: 10,
+    marginBottom: 32,
+  },
+  toggleActive: {
+    backgroundColor: Colors.primary,
+    padding: 8,
+    borderRadius: 32,
+    paddingHorizontal: 30,
+  },
+  activeText: {
+    color: '#fff',
+    fontWeight: '700',
+  },
+  toggleInactive: {
+    padding: 8,
+    borderRadius: 32,
+    paddingHorizontal: 30,
+  },
+  inactiveText: {
+    color: Colors.primary,
   },
   button: {
     backgroundColor: Colors.primary,
     padding: 16,
     margin: 16,
     borderRadius: 4,
+    alignItems: 'center',
   },
-  bottomSheet: {
-    backgroundColor: Colors.lightGrey,
-    borderRadius: 0,
+  buttonText: {
+    color: '#fff',
+    fontWeight: 'bold',
   },
-  containerStyle: {
-    flex: 1,
-    backgroundColor: Colors.lightGrey,
-  },
-  toggle: {
-    flexDirection: "row",
-    justifyContent: "center",
-    gap: 10,
-  },
-  toggleActive: {
-    backgroundColor: Colors.primary,
-    paddingVertical: 8,
-    paddingHorizontal: 30,
-    borderRadius: 32,
-  },
-  toggleInactive: {
-    // backgroundColor: Colors.primary,
-    paddingVertical: 8,
-    paddingHorizontal: 30,
-    borderRadius: 32,
-  },
-  activeText: {
-    color: "#fff",
-    fontWeight: "bold",
-  },
-  inactiveText: {
-    color: Colors.primary,
-  },
-  subHeading: {
+  subheader: {
     fontSize: 16,
-    fontWeight: "800",
+    fontWeight: '600',
     margin: 16,
   },
   item: {
-    flexDirection: "row",
-    alignItems: "center",
-
-    backgroundColor: "#fff",
+    flexDirection: 'row',
+    gap: 8,
+    alignItems: 'center',
+    backgroundColor: '#fff',
     padding: 16,
+    borderColor: Colors.grey,
     borderWidth: 1,
-    borderColor: Colors.lightGrey,
   },
 });
 
-export default Bottom_Sheet;
+export default BottomSheet;

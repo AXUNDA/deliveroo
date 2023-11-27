@@ -1,12 +1,36 @@
-import { View, Text, SafeAreaView } from "react-native";
+import { Text, ScrollView, StyleSheet } from "react-native";
 import React from "react";
+import Categories from "@/components/Categories";
+import { SafeAreaView } from "react-native-safe-area-context";
+import Restaurants from "@/components/Restaurants";
+import Colors from "@/constants/Colors";
 
-const index = () => {
+const Page = () => {
   return (
-    <View>
-      <Text>index</Text>
-    </View>
+    <SafeAreaView style={styles.container}>
+      <ScrollView contentContainerStyle={{ paddingBottom: 40 }}>
+        <Categories />
+        <Text style={styles.header}>Top picks in your neighbourhood</Text>
+        <Restaurants />
+        <Text style={styles.header}>Offers near you</Text>
+        <Restaurants />
+      </ScrollView>
+    </SafeAreaView>
   );
 };
 
-export default index;
+const styles = StyleSheet.create({
+  container: {
+    top: 50,
+    backgroundColor: Colors.lightGrey,
+  },
+  header: {
+    fontSize: 18,
+    fontWeight: "bold",
+    marginTop: 16,
+    marginBottom: 8,
+    paddingHorizontal: 16,
+  },
+});
+
+export default Page;
